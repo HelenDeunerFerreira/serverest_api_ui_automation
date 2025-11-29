@@ -1,3 +1,18 @@
+Cypress.Commands.add("login", () => {
+    return cy.request({
+        method: "POST",
+        url: "/login",
+        body: {
+            email: "fulano@qa.com",
+            password: "teste"
+        }
+    }).then((res) => {
+        expect(res.status).to.eq(200);
+        return res.body.authorization;
+    });
+});
+
+
 Cypress.Commands.add("createUser", () => {
     const user = {
         nome: "UI User " + Date.now(),
@@ -6,7 +21,7 @@ Cypress.Commands.add("createUser", () => {
         administrador: "true"
     };
 
-    return cy.request("POST", "/usuarios", user).then((res) => {
+    return cy.request("POST", `${Cypress.env("apiUrl")}/usuarios`, user).then((res) => {
         expect(res.status).to.eq(201);
         return res.body;
     });
@@ -20,7 +35,7 @@ Cypress.Commands.add("createProduct", () => {
         quantidade: 10
     };
 
-    return cy.request("POST", "/produtos", product).then((res) => {
+    return cy.request("POST", `${Cypress.env("apiUrl")}/produtos`, product).then((res) => {
         expect(res.status).to.eq(201);
         return res.body;
     });
@@ -32,7 +47,7 @@ Cypress.Commands.add("loginApi", () => {
         password: "teste"
     };
 
-    return cy.request("POST", "/login", login).then((res) => {
+    return cy.request("POST", `${Cypress.env("apiUrl")}/login`, login).then((res) => {
         expect(res.status).to.eq(200);
         return res.body.authorization;
     });

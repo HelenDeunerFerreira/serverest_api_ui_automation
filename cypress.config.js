@@ -2,8 +2,12 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
     e2e: {
-        baseUrlAPI: "https://serverest.dev",
-        baseURLUI: "https://front.serverest.dev",
+        baseUrl: "https://serverest.dev",
+        specPattern: "cypress/e2e/**/*.spec.js",
         supportFile: "cypress/support/e2e.js",
     },
+    env: {
+        apiUrl: "https://serverest.dev",
+        uiUrl: "https://front.serverest.dev"
+    }
 });
