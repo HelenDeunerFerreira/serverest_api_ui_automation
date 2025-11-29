@@ -1,3 +1,5 @@
+import LoginPage from "../pages/ui/LoginPage";
+
 Cypress.Commands.add("login", () => {
     return cy.request({
         method: "POST",
@@ -51,4 +53,12 @@ Cypress.Commands.add("loginApi", () => {
         expect(res.status).to.eq(200);
         return res.body.authorization;
     });
+});
+
+Cypress.Commands.add("loginUI", () => {
+    const email = "fulano@qa.com";
+    const password = "teste";
+
+    LoginPage.login(email, password);
+    LoginPage.expectLoggedIn();
 });

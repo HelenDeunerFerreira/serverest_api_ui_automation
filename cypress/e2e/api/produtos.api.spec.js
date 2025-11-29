@@ -10,7 +10,7 @@ before(() => {
 describe("API: Produtos", () => {
     let productId;
 
-    it("POST /produtos - postar um novo produto", () => {
+    it("POST /produtos - cadastrar um novo produto", () => {
         cy.request({
             method: "POST",
             url: `${Cypress.env("apiUrl")}/produtos`,

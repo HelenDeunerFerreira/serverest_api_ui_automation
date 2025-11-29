@@ -7,42 +7,23 @@ before(() => {
     });
 });
 
-it("POST /produtos - create product", () => {
-    cy.request({
-        method: "POST",
-        url: `${Cypress.env("apiUrl")}/produtos`,
-        headers: {
-            Authorization: token
-        },
-        body: {
-            nome: "Produto Teste " + Date.now(),
-            preco: 100,
-            descricao: "Produto criado via teste",
-            quantidade: 20
-        }
-    }).then((res) => {
-        expect(res.status).to.eq(201);
-        productId = res.body._id;
-    });
-});
-
 describe("API: Usuários", () => {
     let userId;
 
-    it("POST /usuarios - create user", () => {
+    it("POST /usuarios - criar usuário", () => {
         cy.createUser().then((user) => {
             userId = user._id;
         });
     });
 
-    it("GET /usuarios/{id}", () => {
+    it("GET /usuarios/{id} - buscar informações de um usuário", () => {
         cy.request(`${Cypress.env("apiUrl")}/usuarios/${userId}`).then((res) => {
             expect(res.status).to.eq(200);
             expect(res.body._id).to.eq(userId);
         });
     });
 
-    it("PUT /usuarios/{id}", () => {
+    it("PUT /usuarios/{id} - atualizar informações de um usuário", () => {
         cy.request({
             method: "PUT",
             url: `${Cypress.env("apiUrl")}/usuarios/${userId}`,
@@ -57,7 +38,7 @@ describe("API: Usuários", () => {
         });
     });
 
-    it("DELETE /usuarios/{id}", () => {
+    it("DELETE /usuarios/{id} - deletar um usuário", () => {
         cy.request("DELETE", `${Cypress.env("apiUrl")}/usuarios/${userId}`).then((res) => {
             expect(res.status).to.eq(200);
         });
